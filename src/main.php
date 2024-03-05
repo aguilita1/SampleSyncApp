@@ -80,9 +80,11 @@ function Sync(\Monolog\Logger $log )
 {
      $todayDt = new DateTime();
     $endDt = (new DateTime())->add(date_interval_create_from_date_string('1 days'));
+    $log->info('*******************************************************');
     $log->info('Synchronizing data between ' . $todayDt->format("Y-m-d") . ' and '. $endDt->format("Y-m-d").'.');
     $log->info('Please wait... doing meaningless pretend work.');
     $log->info('Synchronization is complete.');
+    $log->info('*******************************************************');
 }
 
 ?>
