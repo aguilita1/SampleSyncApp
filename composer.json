@@ -7,7 +7,7 @@
     "Github Actions"
   ],
   "homepage": "https://github.com/aguilita1/SampleSyncApp",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-only",
   "authors": [
     {
       "name": "Daniel I. Kelley",
