@@ -1,0 +1,33 @@
+{
+  "name": "aguilita1/samplesyncapp",
+  "description": "Sample Sync Application written in PHP to test out Github Actions.",
+  "keywords": [
+    "Sample PHP App",
+    "React EventLoop",
+    "Github Actions"
+  ],
+  "homepage": "https://github.com/aguilita1/SampleSyncApp",
+  "license": "AGPL-3.0",
+  "authors": [
+    {
+      "name": "Daniel I. Kelley",
+      "homepage": "https://github.com/aguilita1"
+    }
+  ],
+  "config": {
+      "platform": {
+           "php": "8.2.16"
+       }
+  },
+  "require": {
+    "php": ">=8.2",
+    "guzzlehttp/guzzle": ">=6.0",
+    "react/event-loop":"^1.1.1",
+    "monolog/monolog":"^3.5.0"
+  },
+  "require-dev": {
+    "php": ">=8.2",
+    "phpunit/phpunit": "^8",
+    "zircote/swagger-php": "~2.0"
+  }
+}

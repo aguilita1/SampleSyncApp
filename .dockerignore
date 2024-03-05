@@ -1,0 +1,28 @@
+# Development related files and folders are excluded from the build context
+.idea
+.git/
+.git*
+
+# Containers
+containers/
+
+# Test sources aren't included in the production container (they are mounted by dev/ci)
+tests/
+phpunit.xml
+results.xml
+.phpunit.result.cache
+
+
+# Vendor will be built by Dockerfile - don't include any of our local vendor files
+vendor/
+
+# Cache should be empty so that it gets built internally
+cache/
+
+# Docker artifacts
+Dockerfile*
+docker-compose.yml
+CONTRIBUTING.md
+
+# Package.json - note we will likely want to remove this in 2.0
+package.json
