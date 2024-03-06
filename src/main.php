@@ -8,17 +8,21 @@
 define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
 require PROJECT_ROOT . '/vendor/autoload.php';
+require PROJECT_ROOT . '/lib/Utils.php';
 
     global $app_version;
 	$app_version = 'APP_VERSION';
 
-    global $syncStart;
+    global $syncInterval;
+	global $syncStart;
     global $syncEnd;
-        global $delayedRetryTime;
+
     //Define synchronization environment variables
     $syncInterval= $_SERVER['SA_SYNC_INTERVAL'];
     $syncStart= $_SERVER['SA_START_SYNC'];
     $syncEnd= $_SERVER['SA_STOP_SYNC'];
+    //Set Default Timezone
+    date_default_timezone_set($_SERVER['SA_TIME_ZONE']);
 
     error_reporting(E_ALL);
     ini_set('display_errors', 1);

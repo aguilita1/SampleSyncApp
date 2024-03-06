@@ -1,6 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
+/*
+ * Utils - simple class for us to unit test
+ * Copyright (C) 2024 Daniel Kelley
+ * (Utils.php)
+ *
  * User: Aguilita
  * Date: 3/5/2024
  * Time: 7:47 PM
