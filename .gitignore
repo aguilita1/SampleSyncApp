@@ -48,7 +48,6 @@ Temporary Items
 .idea
 
 # Test results and cache data should not be checked-in
-phpunit.xml
 results.xml
 .phpunit.result.cache
 
