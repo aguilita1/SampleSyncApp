@@ -5,10 +5,10 @@
  * Copyright (C) 2024 Daniel Kelley
  * (main.php)
  */
-define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
+    define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
-require PROJECT_ROOT . '/vendor/autoload.php';
-require PROJECT_ROOT . '/lib/Utils.php';
+    require PROJECT_ROOT . '/vendor/autoload.php';
+    require PROJECT_ROOT . '/lib/Utils.php';
 
     global $app_version;
 	$app_version = 'APP_VERSION';
@@ -30,10 +30,11 @@ require PROJECT_ROOT . '/lib/Utils.php';
     $increment = 0;
 
     try {
-    // [0] initialize
+        // [0] initialize
         // Set up logging to file
-            $log = new \Monolog\Logger('SampleSyncApp');
-        $stream = new \Monolog\Handler\StreamHandler(fopen('php://stdout', 'w'), \Monolog\Level::Debug);
+        $log = new \Monolog\Logger('SampleSyncApp',[],[], null);
+        /** @phpstan-ignore-next-line */
+        $stream = new \Monolog\Handler\StreamHandler( fopen('php://stdout', 'w'), \Monolog\Level::Debug);
         $stream->setFormatter(new \Monolog\Formatter\JsonFormatter());
         $log->pushHandler($stream);
         $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', $GLOBALS['app_version'], PROJECT_ROOT));
@@ -58,12 +59,6 @@ require PROJECT_ROOT . '/lib/Utils.php';
                 } else {
                     $log->info(sprintf("Tick - skipped. Outside sync interval, start = %s and end = %s.", $syncStart, $syncEnd));
                 }
-            } catch (GuzzleHttp\Exception\ConnectException $e) {
-                $log->error('Connect Exception: ' . $e->getMessage() . $e->getTraceAsString());
-                error_log('Connect Exception:' . $e->getMessage() . $e->getTraceAsString() . PHP_EOL);
-            } catch (GuzzleHttp\Exception\RequestException $e3) {
-                $log->error('Request Exception: ' . $e3->getMessage() . $e3->getTraceAsString());
-                error_log('Request Exception:' . $e3->getMessage() . $e3->getTraceAsString() . PHP_EOL);
             } catch (TypeError $e4) {
                 $log->error('TypeError Exception: ' . $e4->getMessage() . $e4->getTraceAsString());
                 error_log('TypeError Exception:' . $e4->getMessage() . $e4->getTraceAsString() . PHP_EOL);
@@ -78,12 +73,12 @@ require PROJECT_ROOT . '/lib/Utils.php';
     }
 
     /**
-     * @param \Monolog\Logger
+     * @param \Monolog\Logger $log
       */
-    function Sync(\Monolog\Logger $log )
+    function Sync(\Monolog\Logger $log ) : void
     {
          $todayDt = new DateTime();
-        $endDt = (new DateTime())->add(date_interval_create_from_date_string('1 days'));
+        $endDt = (new DateTime())->add(DateInterval::createFromDateString('1 days'));
         $log->info('*******************************************************');
         $log->info((new SampleSyncApp\Utils())->toSyncString($todayDt, $endDt));
         $log->info('Please wait... doing meaningless pretend work.');

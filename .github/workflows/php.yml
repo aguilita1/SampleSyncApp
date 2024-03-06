@@ -20,9 +20,12 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
+    - uses: php-actions/composer@v6
+
     - name: PHP Static Analysis
       uses: php-actions/phpstan@v3
       with:
+        level: 9
         path: src/
 
     - name: PHPUnit Tests
