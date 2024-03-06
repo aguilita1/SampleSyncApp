@@ -15,12 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
-    - uses: php-actions/composer@v6
+    - name: Install with DEV dependencies
+      uses: php-actions/composer@v6
 
     - name: PHP Static Analysis
       uses: php-actions/phpstan@v3
@@ -46,4 +48,6 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
+      uses: php-actions/composer@v6
+      with:
+        only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
