@@ -33,7 +33,7 @@ jobs:
       with:
         version: 9
         bootstrap: vendor/autoload.php
-        configuration: test/phpunit.xml
+        configuration: tests/phpunit.xml
         args: --coverage-text
 
     - name: Cache Composer packages
