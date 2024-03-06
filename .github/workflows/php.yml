@@ -32,6 +32,9 @@ jobs:
       uses: php-actions/phpunit@v3
       with:
         version: 9
+        bootstrap: vendor/autoload.php
+        args: --coverage-text
+        
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v4
