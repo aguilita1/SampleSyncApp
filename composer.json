@@ -21,12 +21,11 @@
   },
   "require": {
     "php": ">=8.2",
-    "guzzlehttp/guzzle": ">=6.0",
+    "guzzlehttp/guzzle": "^7.8.1",
     "react/event-loop":"^1.1.1",
     "monolog/monolog":"^3.5.0"
   },
   "require-dev": {
-    "php": ">=8.2",
     "phpunit/phpunit": "^8",
     "zircote/swagger-php": "~2.0"
   }
