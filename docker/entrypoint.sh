@@ -7,7 +7,7 @@ sed -i "s/memory_limit = .*$/memory_limit = $SA_PHP_MEMORY_LIMIT/" /etc/php82/ph
 
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Sample Sync Application written in PHP to test out Github Actions.*"
-echo " * Copyright (C) 2018 Daniel Kelley                                  *"
+echo " * Copyright (C) 2024 Daniel Kelley                                  *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 
 /usr/bin/php82 /opt/ir/lib/main.php

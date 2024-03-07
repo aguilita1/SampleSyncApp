@@ -51,3 +51,23 @@ jobs:
       uses: php-actions/composer@v6
       with:
         only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
+
+    - name: "Setup Docker Buildx"
+      uses: docker/setup-buildx-action@v3
+
+    -name: Docker meta
+     id: meta
+     uses: docker/metadata-action@v5
+     with:
+       images: luigui/samplesyncapp
+       tags: |
+            type=raw,value={{date 'YYYYMMDD'}}
+
+    - name: Build the Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        tags: ${{ steps.meta.outputs.tags }}
+        sbom: true
+        provenance: true
+      #run: docker build . --file Dockerfile --tag samplesyncapp:$(date +%s)
