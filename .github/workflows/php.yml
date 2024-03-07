@@ -21,7 +21,7 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
-    - name: Install with DEV dependencies
+    - name: Install with DEV Dependencies
       uses: php-actions/composer@v6
 
     - name: PHP Static Analysis
@@ -38,7 +38,7 @@ jobs:
         configuration: tests/phpunit.xml
         args: --coverage-text
 
-    - name: Cache Composer packages
+    - name: Cache Composer Packages
       id: composer-cache
       uses: actions/cache@v4
       with:
@@ -47,27 +47,35 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
+    - name: Install Dependencies
       uses: php-actions/composer@v6
       with:
         only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
 
-    - name: "Setup Docker Buildx"
+    - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Docker meta
+    - name: Docker Meta
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: luigui/samplesyncapp
+        images: ${{ secrets.DOCKERHUB_USERNAME }}/samplesyncapp
         tags: |
              type=raw,value={{date 'YYYYMMDD'}}
 
-    - name: Build the Docker image
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and Push Docker Image
       uses: docker/build-push-action@v5
       with:
         context: .
+        file: ./Dockerfile
         tags: ${{ steps.meta.outputs.tags }}
         sbom: true
         provenance: true
+        push: true
       #run: docker build . --file Dockerfile --tag samplesyncapp:$(date +%s)
