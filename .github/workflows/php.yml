@@ -76,6 +76,6 @@ jobs:
         file: ./Dockerfile
         tags: ${{ steps.meta.outputs.tags }}
         sbom: true
-        provenance: true
+        provenance: mode=max
         push: true
       #run: docker build . --file Dockerfile --tag samplesyncapp:$(date +%s)
