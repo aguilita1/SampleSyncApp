@@ -39,19 +39,21 @@ jobs:
         args: --coverage-text
 
     - name: Get Composer Cache Directory
-      id: composer-cache
+      id: composer-cache-dir
       run: |
         echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
     - name: Cache Composer Packages
+      id: composer-cache
       uses: actions/cache@v4
       with:
-        path: ${{ steps.composer-cache.outputs.dir }}
+        path: ${{ steps.composer-cache-dir.outputs.dir }}
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
 
     - name: Install Dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
       uses: php-actions/composer@v6
       with:
         only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
