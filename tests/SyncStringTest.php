@@ -25,7 +25,8 @@ final class SyncStringTest extends TestCase
     public function testToString() : void
     {
         $todayDt = new DateTime("2024-3-5T8:00:00Z",new \DateTimeZone('America/New_York'));
-        $endDt = (new DateTime())->add(date_interval_create_from_date_string('1 days'));
+        $endDt = (new DateTime("2024-3-5T8:00:00Z",new \DateTimeZone('America/New_York')))
+            ->add(date_interval_create_from_date_string('1 days'));
 
         $testStr = (new SampleSyncApp\Utils())->toSyncString($todayDt, $endDt);
         $this->assertEquals($testStr,"Synchronizing data between 2024-03-05 and 2024-03-06.");
