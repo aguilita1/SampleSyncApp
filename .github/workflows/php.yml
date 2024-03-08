@@ -18,17 +18,29 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
-
-    - name: Install with DEV Dependencies
-      uses: php-actions/composer@v6
-
     - name: PHP Static Analysis
       uses: php-actions/phpstan@v3
       with:
         level: 9
         path: src/
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Get Composer Cache Directory
+      id: composer-cache-dir
+      run: |
+        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache Dev Composer Packages
+      id: composer-dev-cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-php-dev-${{ hashFiles('**/composer.lock') }}
+
+    - name: Install with DEV Dependencies
+      uses: php-actions/composer@v6
 
     - name: PHPUnit Tests
       uses: php-actions/phpunit@v3
@@ -38,25 +50,17 @@ jobs:
         configuration: tests/phpunit.xml
         args: --coverage-text
 
-    - name: Get Composer Cache Directory
-      id: composer-cache-dir
-      run: |
-        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+    - name: Install Dependencies
+      uses: php-actions/composer@v6
+      with:
+        only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
 
-    - name: Cache Composer Packages
+    - name: Cache Dev Composer Packages
       id: composer-cache
       uses: actions/cache@v4
       with:
         path: ${{ steps.composer-cache-dir.outputs.dir }}
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install Dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      uses: php-actions/composer@v6
-      with:
-        only_args: --no-interaction --no-dev --ignore-platform-reqs --optimize-autoloader
 
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v3
