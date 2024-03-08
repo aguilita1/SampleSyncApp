@@ -25,7 +25,7 @@ jobs:
     - name: Cache Dev Composer dependencies
       uses: actions/cache@v4
       with:
-        path: /vendor
+        path: /tmp/composer-cache
         key: ${{ runner.os }}-php-dev-${{ hashFiles('**/composer.lock') }}
 
     - name: Install with DEV Dependencies
