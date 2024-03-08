@@ -45,6 +45,12 @@ jobs:
         configuration: tests/phpunit.xml
         args: --coverage-text
 
+    - name: Cache Prod Composer dependencies
+      uses: actions/cache@v4
+      with:
+        path: /tmp/composer-cache
+        key: ${{ runner.os }}-php-prod-${{ hashFiles('**/composer.lock') }}
+
     - name: Install Dependencies
       uses: php-actions/composer@v6
       with:
