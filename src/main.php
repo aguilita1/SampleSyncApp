@@ -81,7 +81,7 @@
         $endDt = (new DateTime())->add(DateInterval::createFromDateString('1 days'));
         $log->info('*******************************************************');
         $log->info((new SampleSyncApp\Utils())->toSyncString($todayDt, $endDt));
-        $log->info('Please wait... doing meaningless pretend work.');
+        $log->info('Please wait... doing meaningless pretend work again.');
         $log->info('Synchronization is complete.');
         $log->info('*******************************************************');
     }
