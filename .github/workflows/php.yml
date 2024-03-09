@@ -59,10 +59,10 @@ jobs:
       with:
         images: ${{ secrets.DOCKERHUB_USERNAME }}/samplesyncapp
         tags: |
-             type=semver,pattern={{version}}
-             type=semver,pattern={{major}}.{{minor}}
+#             type=semver,pattern={{version}}
+ #            type=semver,pattern={{major}}.{{minor}}
              type=edge,enable=true,priority=700,prefix=,suffix=,branch=$repo.default_branch
-             type=raw,value={{date 'YYYYMMDD'}}
+  #           type=raw,value={{date 'YYYYMMDD'}}
 
 
 
