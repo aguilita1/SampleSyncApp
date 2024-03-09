@@ -22,7 +22,7 @@ FROM alpine:3.18.6
 MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
 
 # Added meta-data about this app
-ARG APP_VERSION="1.0.0"
+ARG APP_VERSION="1.0.3"
 LABEL vendor=REVOLVE \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
