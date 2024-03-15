@@ -84,3 +84,12 @@ jobs:
 
     - name: Show Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
+
+    - name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves, recommendations
+          image: ${{ steps.meta.outputs.tags }}
+          sarif-file: sarif.output.json
+          summary: true
