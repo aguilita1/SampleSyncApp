@@ -43,7 +43,7 @@
 
 
     // [1]
-        $loop = React\EventLoop\Factory::create();
+        $loop = React\EventLoop\Loop::get();
 
     // [2]
         $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
