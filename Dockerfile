@@ -17,7 +17,7 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM alpine:3.18.6
+FROM php:8.3.4-cli-alpine3.18
 
 MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
 
@@ -36,12 +36,6 @@ RUN apk update && apk upgrade && apk add \
     tar \
     bash \
     curl \
-    php82 \
-    php82-curl \
-    php82-session \
-    php82-fileinfo \
-    php82-xml \
-    php82-simplexml \
     tzdata \
     && rm -rf /var/cache/apk/*
 
