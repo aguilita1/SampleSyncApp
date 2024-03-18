@@ -86,6 +86,9 @@ jobs:
     - name: Show Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
 
+    - name: Show Image Tag
+      run: echo ${{ steps.meta.outputs.tags[0] }}
+
     - name: Docker Scout
       id: docker-scout
       if: ${{ github.event_name != 'pull_request_target' }}
