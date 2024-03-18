@@ -22,12 +22,12 @@ FROM php:8.3.4-cli-alpine3.18
 MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
 
 # Added meta-data about this app
-ARG APP_VERSION="1.0.5"
+ARG APP_VERSION="1.0.6"
 LABEL vendor=REVOLVE \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2024-03-05"
+      com.github.aguilita1.release-date="2024-03-17"
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
