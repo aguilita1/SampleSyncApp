@@ -1,0 +1,28 @@
+name: Docker Scout
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_name:
+        description: 'Image Name'
+        required: true
+        default: 'php:8.3.4-cli-alpine3.18'
+
+permissions:
+  contents: read
+  security-events: write
+  pull-requests: write
+jobs:
+  scan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Docker Scout
+      id: docker-scout
+      uses: docker/scout-action@v1
+      with:
+        command: cves, recommendations
+        image: ${{ github.event.inputs.image_name }}
+        sarif-file: sarif.output.json
+        summary: true
