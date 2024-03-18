@@ -92,7 +92,7 @@ jobs:
       uses: docker/scout-action@v1
       with:
         command: cves, recommendations
-        image: ${{ steps.meta.outputs.tags }}
+        image: ${{ steps.meta.outputs.tags[0] }}
         sarif-file: sarif.output.json
         summary: true
 
