@@ -17,7 +17,7 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM alpine:3.18.6
+FROM php:8.3.4-cli-alpine3.18
 
 MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
 
@@ -29,29 +29,14 @@ LABEL vendor=REVOLVE \
       com.github.aguilita1.version=$APP_VERSION \
       com.github.aguilita1.release-date="2024-03-05"
 
-# Install apache, PHP, and supplimentary programs.
+# Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
-    libcrypto1.1 \
-    libssl1.1 \
-    tar \
     bash \
-    curl \
-    php82 \
-    php82-curl \
-    php82-session \
-    php82-fileinfo \
-    php82-xml \
-    php82-simplexml \
     tzdata \
     && rm -rf /var/cache/apk/*
 
-# Add all necessary config files in one layer
+# Add all necessary config files (entrypoint.sh & php.ini) in one layer
 ADD docker/ /
-
-# Update the PHP.ini file
-RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php82/php.ini && \
-    sed -i "s/session.gc_probability = .*$/session.gc_probability = 50/" /etc/php82/php.ini && \
-    sed -i "s/session.gc_divisor = .*$/session.gc_divisor = 100/" /etc/php82/php.ini
 
 # Setup persistent environment variables
 ENV SA_PHP_SESSION_GC_MAXLIFETIME=1440 \
@@ -62,22 +47,19 @@ ENV SA_PHP_SESSION_GC_MAXLIFETIME=1440 \
     SA_START_SYNC=04:00:00\
     SA_STOP_SYNC=23:59:59
 
-
 # Map the source files into /var/www/cms
 RUN mkdir -p /opt/ir
 COPY --from=composer /app /opt/ir
 
-
+# Change owner and permissions on startup file
 # Write App version to settings.php file
-RUN sed -i "s/.*app_version = 'APP_VERSION'.*$/\$app_version = '$APP_VERSION';/" /opt/ir/lib/main.php
-
-# Map a volumes to this folder.
-# Our CMS files, library, cache and backups will be in here.
+# Set Time Zone
+# Move php.ini to config directory
 RUN chown -R nobody /opt/ir && \
-    chmod +x /entrypoint.sh
-
-#Set Time Zone
-RUN ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone
+    chmod +x /entrypoint.sh && \
+    sed -i "s/.*app_version = 'APP_VERSION'.*$/\$app_version = '$APP_VERSION';/" /opt/ir/lib/main.php && \
+    ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone && \
+    mv php.ini-production /usr/local/etc/php/php.ini
 
 # Set the working directory to root
 WORKDIR /
