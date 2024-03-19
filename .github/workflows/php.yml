@@ -87,7 +87,10 @@ jobs:
       run: echo ${{ steps.docker_build.outputs.digest }}
 
     - name: Show Image Tag
-      run: echo ${{ steps.meta.outputs.json.tags[0] }}
+      run: |
+             echo "JSON is ${{ steps.meta.outputs.json }}"
+             echo "tags are ${{ steps.meta.outputs.json.tags }}"
+             echo "tag is ${{ steps.meta.outputs.json.tags[0] }}"
 
     - name: Docker Scout
       id: docker-scout
