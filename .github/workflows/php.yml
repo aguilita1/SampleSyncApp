@@ -87,12 +87,6 @@ jobs:
     - name: Show Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
 
-    - name: Show Image Tag
-      run: |
-             echo "JSON is ${{ steps.meta.outputs.json }}"
-             echo "tags are ${{ steps.meta.outputs.json.tags }}"
-             echo "tag is ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ steps.meta.outputs.version }}"
-
     - name: Docker Scout
       id: docker-scout
       if: ${{ github.event_name != 'pull_request_target' }}
