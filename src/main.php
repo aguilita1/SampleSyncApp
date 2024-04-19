@@ -61,7 +61,6 @@
                 }
             } catch (TypeError $e4) {
                 $log->error('TypeError Exception: ' . $e4->getMessage() . $e4->getTraceAsString());
-                error_log('TypeError Exception:' . $e4->getMessage() . $e4->getTraceAsString() . PHP_EOL);
             }
 
         });
@@ -69,7 +68,7 @@
     // [3]
         $loop->run();
     }catch(Exception $ex){
-        error_log('Unknown Exception:' . $ex->getMessage() . $ex->getTraceAsString() . PHP_EOL);
+        $log->error('Unknown Exception: ' . $ex->getMessage() . $ex->getTraceAsString());
     }
 
     /**
