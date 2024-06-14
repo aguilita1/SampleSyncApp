@@ -17,17 +17,17 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM php:8.3.7-cli-alpine3.19
+FROM php:8.3.8-cli-alpine3.20
 
 MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
 
 # Added meta-data about this app
-ARG APP_VERSION="1.0.9"
+ARG APP_VERSION="1.0.10"
 LABEL vendor=REVOLVE \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2024-05-20"
+      com.github.aguilita1.release-date="2024-06-14"
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
