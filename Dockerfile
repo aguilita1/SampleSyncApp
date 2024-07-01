@@ -27,7 +27,7 @@ LABEL vendor=REVOLVE \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2024-06-14"
+      com.github.aguilita1.release-date="2024-07-01"
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
