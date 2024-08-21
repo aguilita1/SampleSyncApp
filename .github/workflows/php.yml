@@ -63,7 +63,7 @@ jobs:
         flavor: |
              latest=auto
         tags: |
-             type=edge,branch=*
+             type=edge,branch=main
              type=semver,pattern={{version}}
 
     - name: Login to Docker Hub
