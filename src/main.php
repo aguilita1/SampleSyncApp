@@ -1,89 +1,103 @@
 #!/usr/bin/env php
 <?php
 /*
- * Sample Sync Application written in PHP to test out Github Actions.
+ * Sample Sync Application written in PHP to test out GitHub Actions.
  * Copyright (C) 2024 Daniel Kelley
  * (main.php)
  */
-    define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
-    require PROJECT_ROOT . '/vendor/autoload.php';
-    require PROJECT_ROOT . '/lib/Utils.php';
+declare(strict_types=1);
 
-    global $app_version;
-	$app_version = 'APP_VERSION';
+define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
-    global $syncInterval;
-	global $syncStart;
-    global $syncEnd;
+require PROJECT_ROOT . '/vendor/autoload.php';
 
-    //Define synchronization environment variables
-    $syncInterval= $_SERVER['SA_SYNC_INTERVAL'];
-    $syncStart= $_SERVER['SA_START_SYNC'];
-    $syncEnd= $_SERVER['SA_STOP_SYNC'];
-    //Set Default Timezone
-    date_default_timezone_set($_SERVER['SA_TIME_ZONE']);
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Level;
+use React\EventLoop\Factory as LoopFactory;
+use DateTime;
+use DateInterval;
+use SampleSyncApp\Utils;
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    global $increment;
-    $increment = 0;
+// Load configuration from environment variables
+$syncInterval = (int)($_SERVER['SA_SYNC_INTERVAL'] ?? 60);
+$syncStart = $_SERVER['SA_START_SYNC'] ?? '00:00:00';
+$syncEnd = $_SERVER['SA_STOP_SYNC'] ?? '23:59:59';
+date_default_timezone_set($_SERVER['SA_TIME_ZONE'] ?? 'UTC');
 
-    try {
-        // [0] initialize
-        // Set up logging to file
-        $log = new \Monolog\Logger('SampleSyncApp',[],[], null);
-        /** @phpstan-ignore-next-line */
-        $stream = new \Monolog\Handler\StreamHandler( fopen('php://stdout', 'w'), \Monolog\Level::Debug);
-        $stream->setFormatter(new \Monolog\Formatter\JsonFormatter());
-        $log->pushHandler($stream);
-        $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', $GLOBALS['app_version'], PROJECT_ROOT));
+// Initialize Logger
+$log = initializeLogger();
 
-        $log->debug('*****************START**main.php*********************');
+try {
+    $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
+    $log->debug('*****************START**main.php*********************');
 
+    $loop = LoopFactory::create();
 
-    // [1]
-        $loop = React\EventLoop\Loop::get();
+    $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
+        $dateToCompare = date('H:i:s');
 
-    // [2]
-        $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
-
-            $dateToCompare = date('H:i:s');
-            try {
-                if ($dateToCompare >= $syncStart && $dateToCompare <= $syncEnd) {
-                    $log->info(sprintf("Tick - %d more seconds. Inside sync interval, start = %s and end = %s.", $syncInterval, $syncStart, $syncEnd),
-                        array('memoryAllocated' => memory_get_usage(), 'peakMemoryAllocated' => memory_get_peak_usage()));
-                    Sync($log);
-                    gc_collect_cycles();
-                    gc_mem_caches();
-                } else {
-                    $log->info(sprintf("Tick - skipped. Outside sync interval, start = %s and end = %s.", $syncStart, $syncEnd));
-                }
-            } catch (TypeError $e4) {
-                $log->error('TypeError Exception: ' . $e4->getMessage() . $e4->getTraceAsString());
+        try {
+            if ($dateToCompare >= $syncStart && $dateToCompare <= $syncEnd) {
+                $log->info(sprintf(
+                    "Tick - %d more seconds. Inside sync interval, start = %s and end = %s.",
+                    $syncInterval,
+                    $syncStart,
+                    $syncEnd
+                ), [
+                    'memoryAllocated' => memory_get_usage(),
+                    'peakMemoryAllocated' => memory_get_peak_usage()
+                ]);
+                performSync($log);
+                gc_collect_cycles();
+                gc_mem_caches();
+            } else {
+                $log->info(sprintf("Tick - skipped. Outside sync interval, start = %s and end = %s.", $syncStart, $syncEnd));
             }
+        } catch (TypeError $e) {
+            $log->error('TypeError Exception: ' . $e->getMessage() );
+        }
+    });
 
-        });
+    $loop->run();
+} catch (Exception $ex) {
+    $log->error('Unknown Exception: ' . $ex->getMessage() );
+}
 
-    // [3]
-        $loop->run();
-    }catch(Exception $ex){
-        $log->error('Unknown Exception: ' . $ex->getMessage() . $ex->getTraceAsString());
-    }
+/**
+ * Initialize the logger.
+ *
+ * @return Logger
+ */
+function initializeLogger(): Logger
+{
+    $logger = new Logger('SampleSyncApp');
+    $streamHandler = new StreamHandler('php://stdout', Monolog\Level::Debug);
+    $streamHandler->setFormatter(new JsonFormatter());
+    $logger->pushHandler($streamHandler);
 
-    /**
-     * @param \Monolog\Logger $log
-      */
-    function Sync(\Monolog\Logger $log ) : void
-    {
-         $todayDt = new DateTime();
-        $endDt = (new DateTime())->add(DateInterval::createFromDateString('1 days'));
+    return $logger;
+}
+
+/**
+ * Perform synchronization tasks.
+ * @param Logger $log
+ */
+function performSync(Logger $log): void
+{
+    try {
+        $todayDt = new DateTime();
+        $endDt = (new DateTime())->add(new DateInterval('P1D'));
+
         $log->info('*******************************************************');
-        $log->info((new SampleSyncApp\Utils())->toSyncString($todayDt, $endDt));
+        $log->info((new Utils())->toSyncString($todayDt, $endDt));
         $log->info('Please wait... doing meaningless pretend work.');
         $log->info('Synchronization is complete.');
         $log->info('*******************************************************');
+    }catch (Exception $ex){
+        $log->error("Exception: the interval_spec cannot be parsed as an interval.");
     }
-
-
+}
 ?>
