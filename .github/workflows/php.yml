@@ -64,7 +64,7 @@ jobs:
              latest=auto
         tags: |
              type=edge,branch=main
-	     type=branch,pattern={{branch}}
+	     type=ref,event=branch
              type=semver,pattern={{version}}
 
     - name: Login to Docker Hub
