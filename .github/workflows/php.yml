@@ -2,10 +2,7 @@ name: Continuous Integration
 
 on:
   workflow_dispatch:
-    branch:
-        required: true
-        default: 'main'
-        type: string
+    branches:["main"]
   push:
     branches: [ "main" ]
   pull_request:
