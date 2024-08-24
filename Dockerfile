@@ -1,6 +1,6 @@
 # Stage 1
 # Run composer
-FROM  composer:2.7.7 as composer
+FROM  composer:2.7.8 as composer
 WORKDIR /app
 COPY ./composer.json /app
 COPY ./composer.lock /app
