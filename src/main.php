@@ -17,7 +17,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Level;
-use React\EventLoop\Factory as LoopFactory;
+use React\EventLoop\LoopInterface;
+use React\EventLoop\StreamSelectLoop;
 use SampleSyncApp\Utils;
 
 // Load configuration from environment variables
@@ -33,7 +34,9 @@ try {
     $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
     $log->debug('*****************START**main.php*********************');
 
-    $loop = LoopFactory::create();
+    // Create the event loop instance
+    /** @var LoopInterface $loop */
+    $loop = new StreamSelectLoop();
 
     $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
         $dateToCompare = date('H:i:s');
@@ -56,13 +59,13 @@ try {
                 $log->info(sprintf("Tick - skipped. Outside sync interval, start = %s and end = %s.", $syncStart, $syncEnd));
             }
         } catch (TypeError $e) {
-            $log->error('TypeError Exception: ' . $e->getMessage() );
+            $log->error('TypeError Exception: ' . $e->getMessage());
         }
     });
 
     $loop->run();
 } catch (Exception $ex) {
-    $log->error('Unknown Exception: ' . $ex->getMessage() );
+    $log->error('Unknown Exception: ' . $ex->getMessage());
 }
 
 /**
@@ -95,7 +98,7 @@ function performSync(Logger $log): void
         $log->info('Please wait... doing meaningless pretend work.');
         $log->info('Synchronization is complete.');
         $log->info('*******************************************************');
-    }catch (Exception $ex){
+    } catch (Exception $ex) {
         $log->error("Exception: the interval_spec cannot be parsed as an interval.");
     }
 }
