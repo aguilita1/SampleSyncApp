@@ -17,7 +17,6 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Level;
-use React\EventLoop\LoopInterface;
 use React\EventLoop\StreamSelectLoop;
 use SampleSyncApp\Utils;
 
@@ -35,8 +34,9 @@ try {
     $log->debug('*****************START**main.php*********************');
 
     // Create the event loop instance
-    /** @var LoopInterface $loop */
+    /** @var StreamSelectLoop $loop */
     $loop = new StreamSelectLoop();
+
 
     $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
         $dateToCompare = date('H:i:s');
