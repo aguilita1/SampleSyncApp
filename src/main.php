@@ -11,14 +11,13 @@ declare(strict_types=1);
 define('PROJECT_ROOT', realpath(__DIR__ . '/..'));
 
 require PROJECT_ROOT . '/vendor/autoload.php';
+require PROJECT_ROOT . '/lib/Utils.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Level;
 use React\EventLoop\Factory as LoopFactory;
-use DateTime;
-use DateInterval;
 use SampleSyncApp\Utils;
 
 // Load configuration from environment variables
