@@ -18,6 +18,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Level;
 use React\EventLoop\StreamSelectLoop;
+use React\EventLoop\LoopInterface;
 use SampleSyncApp\Utils;
 
 // Load configuration from environment variables
@@ -33,10 +34,8 @@ try {
     $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
     $log->debug('*****************START**main.php*********************');
 
-    // Create the event loop instance
-    /** @var StreamSelectLoop $loop */
+    /** @var LoopInterface $loop */
     $loop = new StreamSelectLoop();
-
 
     $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
         $dateToCompare = date('H:i:s');
