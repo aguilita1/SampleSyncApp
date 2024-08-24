@@ -16,12 +16,12 @@
   ],
   "config": {
       "platform": {
-           "php": "8.2.16"
+           "php": "8.3.10"
        }
   },
   "require": {
     "php": ">=8.2",
-    "guzzlehttp/guzzle": "^7.8.1",
+    "guzzlehttp/guzzle": "^7.9.2",
     "react/event-loop":"^1.5.0",
     "monolog/monolog":"^3.7.0"
   },
