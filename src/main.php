@@ -34,7 +34,7 @@ try {
     $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
     $log->debug('*****************START**main.php*********************');
 
-    /** @var LoopInterface $loop */
+    /** @var React\EventLoop\LoopInterface $loop */
     $loop = new StreamSelectLoop();
 
     $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
