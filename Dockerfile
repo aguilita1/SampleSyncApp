@@ -1,6 +1,6 @@
 # Stage 1
 # Run composer
-FROM  composer:2.7.8 as composer
+FROM  composer:2.7.8 AS composer
 WORKDIR /app
 COPY ./composer.json /app
 COPY ./composer.lock /app
@@ -19,11 +19,11 @@ RUN rm /app/composer.*
 # Extend from alpine parent image
 FROM php:8.3.10-cli-alpine3.20
 
-MAINTAINER Sample Sync App <Daniel.Ian.Kelley@gmail.com>
-
 # Added meta-data about this app
 ARG APP_VERSION="1.0.12"
 LABEL vendor=REVOLVE \
+      maintainer="Daniel.Ian.Kelley@gmail.com" \
+      description="Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application." \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       com.github.aguilita1.version=$APP_VERSION \
