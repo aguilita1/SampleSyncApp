@@ -55,6 +55,18 @@ jobs:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Set Branch Name
+      id: set_branch
+      run: |
+        if [[ "${GITHUB_REF}" == refs/heads/* ]]; then
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        else
+          BRANCH_NAME="unknown"
+        fi
+        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}"
+        echo "GITHUB_REF_TYPE=${GITHUB_REF_TYPE}"
+
     - name: Docker Meta
       id: meta
       uses: docker/metadata-action@v5
@@ -65,7 +77,7 @@ jobs:
         tags: |
              type=edge,branch=main
              type=edge,enable=${{ github.event_name == 'pull_request' }}
-             type=raw,value=edge-{{branch}},enable=${{ {{branch}} != '' && github.event_name != 'pull_request' && github.ref != format('refs/heads/{0}', 'main') }}
+             type=raw,value=edge-{{branch}},enable=${{ github.event_name != 'pull_request' && github.ref != format('refs/heads/{0}', 'main') }}
              type=semver,pattern={{version}}
 
     - name: Login to Docker Hub
