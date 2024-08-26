@@ -76,7 +76,7 @@ jobs:
              latest=auto
         tags: |
              type=edge,branch=main
-             type=edge,enable=${{ github.event_name == 'pull_request' }}
+             type=raw,value=edge,enable=${{ github.event_name == 'pull_request' }}
              type=raw,value=edge-{{branch}},enable=${{ github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref != format('refs/heads/{0}', 'main') }}
              type=semver,pattern={{version}}
 
