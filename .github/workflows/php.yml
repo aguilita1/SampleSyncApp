@@ -55,18 +55,6 @@ jobs:
     - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Set Branch Name
-      id: set_branch_2
-      run: |
-        if [[ "${GITHUB_REF}" == refs/heads/* ]]; then
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-        else
-          BRANCH_NAME="unknown"
-        fi
-        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
-        echo "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}"
-        echo "GITHUB_REF_TYPE=${GITHUB_REF_TYPE}"
-
     - name: Docker Meta
       id: meta
       uses: docker/metadata-action@v5
