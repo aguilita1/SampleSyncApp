@@ -40,7 +40,7 @@ jobs:
         path: src/
 
     - name: PHPUnit Tests
-      uses: php-actions/phpunit@v3
+      uses: php-actions/phpunit@v4
       with:
         version: 9
         bootstrap: vendor/autoload.php
@@ -76,7 +76,7 @@ jobs:
 
     - name: Build and Push Docker Image
       id: docker_build
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: ./Dockerfile
@@ -85,6 +85,7 @@ jobs:
         sbom: true
         provenance: mode=max
         push: ${{ github.event_name != 'pull_request' }}
+        platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
 
     - name: Show Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
@@ -95,7 +96,6 @@ jobs:
       uses: docker/scout-action@v1
       with:
         command: cves, recommendations
-        image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ steps.meta.outputs.version }}
         sarif-file: sarif.output.json
         summary: true
 
