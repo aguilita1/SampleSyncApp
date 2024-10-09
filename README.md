@@ -1,4 +1,4 @@
-# SampleSyncApp [![PHP Composer](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml/badge.svg?branch=main&event=push)](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml)
+# SampleSyncApp [![PHP Composer](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml/badge.svg?branch=main&event=push)](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml) [![PHP Version](https://img.shields.io/badge/PHP-v8.3-blue)](https://www.php.net/ChangeLog-8.php) [![Alpine Linux Version](https://img.shields.io/badge/Alpine_Linux-v3.20-blue)](https://alpinelinux.org/releases/) [![Composer Version](https://img.shields.io/badge/Composer-v2.8-blue)](https://github.com/composer/composer/releases)
 A reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application.
 * Published Docker Images: [https://hub.docker.com/r/luigui/samplesyncapp](https://hub.docker.com/r/luigui/samplesyncapp)
 
