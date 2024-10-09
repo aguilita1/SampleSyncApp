@@ -1,6 +1,6 @@
 # Stage 1
 # Run composer
-FROM  composer:2.7.8 AS composer
+FROM  composer:2.8.1 AS composer
 WORKDIR /app
 COPY ./composer.json /app
 COPY ./composer.lock /app
@@ -17,17 +17,17 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM php:8.3.11-cli-alpine3.20
+FROM php:8.3.12-cli-alpine3.20
 
 # Added meta-data about this app
-ARG APP_VERSION="1.0.15"
+ARG APP_VERSION="1.0.16"
 LABEL vendor=REVOLVE \
       maintainer="Daniel.Ian.Kelley@gmail.com" \
       description="Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application." \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2024-08-31"
+      com.github.aguilita1.release-date="2024-10-09"
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
