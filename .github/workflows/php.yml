@@ -85,7 +85,7 @@ jobs:
         sbom: true
         provenance: mode=max
         push: ${{ github.event_name != 'pull_request' }}
-        platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+        platforms: linux/amd64,linux/arm64
 
     - name: Show Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
