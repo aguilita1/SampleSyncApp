@@ -8,12 +8,10 @@ updates:
     commit-message:
       prefix: "dependency fix"
   - package-ecosystem: "github-actions"
-    versioning-strategy: "auto"
     directory: "/.github/workflows" # Location of your action files
     schedule:
       interval: "daily"
   - package-ecosystem: "docker"
-    versioning-strategy: "auto"
     directory: "/" # Location of your Dockerfile
     schedule:
       interval: "daily" 
