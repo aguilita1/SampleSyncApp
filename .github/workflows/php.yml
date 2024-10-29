@@ -40,7 +40,7 @@ jobs:
         path: src/
 
     - name: PHPUnit Tests
-      uses: php-actions/phpunit@v4
+      uses: php-actions/phpunit@v7
       with:
         version: 9
         bootstrap: vendor/autoload.php
