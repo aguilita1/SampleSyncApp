@@ -8,11 +8,11 @@ A reference implementation to demonstrate how to use Github Actions with a simpl
 * Cache Dev Composer dependencies ``actions/cache@v4``
 * Install DEV Dependencies ``php-actions/composer@v6``
 * PHP Static Analysis ``php-actions/phpstan@v3``
-* PHPUnit Tests ``php-actions/phpunit@v3``
+* PHPUnit Tests ``php-actions/phpunit@v4``
 * Install Prod Dependencies ``php-actions/composer@v6``
 * Setup Docker Buildx ``docker/setup-buildx-action@v3``
 * Docker Meta ``docker/metadata-action@v5``
 * Login to Docker Hub ``docker/login-action@v3``
-* Build and Push Docker Image ``docker/build-push-action@v5``
+* Build and Push Docker Image ``docker/build-push-action@v6``
 * Docker Scout ``docker/scout-action@v1``
 * Upload SARIF result ``github/codeql-action/upload-sarif@v3``
