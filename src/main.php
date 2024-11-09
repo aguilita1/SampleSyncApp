@@ -41,6 +41,7 @@ try {
         $dateToCompare = date('H:i:s');
 
         try {
+            // Determine if within synchronization interval.
             if ($dateToCompare >= $syncStart && $dateToCompare <= $syncEnd) {
                 $log->info(sprintf(
                     "Tick - %d more seconds. Inside sync interval, start = %s and end = %s.",
