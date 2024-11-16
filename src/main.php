@@ -24,12 +24,12 @@ use SampleSyncApp\Utils;
 // Load configuration from environment variables
 $syncInterval = isset($_SERVER['SA_SYNC_INTERVAL']) 
     ? (int)filter_var($_SERVER['SA_SYNC_INTERVAL'], FILTER_VALIDATE_INT) : 60;
-
-$syncStart = $_SERVER['SA_START_SYNC'] ?? '00:00:00';
-$syncEnd = $_SERVER['SA_STOP_SYNC'] ?? '23:59:59';
-
+$syncStart = isset($_SERVER['SA_START_SYNC']) && is_string($_SERVER['SA_START_SYNC'])
+    ? (string)$_SERVER['SA_START_SYNC'] : '00:00:00';
+$syncEnd = isset($_SERVER['SA_STOP_SYNC']) && is_string($_SERVER['SA_STOP_SYNC'])
+    ? (string)$_SERVER['SA_STOP_SYNC'] : '23:59:59';
 $timezone = isset($_SERVER['SA_TIME_ZONE']) && is_string($_SERVER['SA_TIME_ZONE'])
-    ? $_SERVER['SA_TIME_ZONE'] : 'UTC';
+    ? (string)$_SERVER['SA_TIME_ZONE'] : 'UTC';
 date_default_timezone_set($timezone);
 
 // Initialize Logger
