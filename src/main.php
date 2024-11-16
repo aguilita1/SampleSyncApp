@@ -22,10 +22,15 @@ use React\EventLoop\LoopInterface;
 use SampleSyncApp\Utils;
 
 // Load configuration from environment variables
-$syncInterval = (int)($_SERVER['SA_SYNC_INTERVAL'] ?? 60);
-$syncStart = $_SERVER['SA_START_SYNC'] ?? '00:00:00';
-$syncEnd = $_SERVER['SA_STOP_SYNC'] ?? '23:59:59';
-date_default_timezone_set($_SERVER['SA_TIME_ZONE'] ?? 'UTC');
+$syncInterval = isset($_SERVER['SA_SYNC_INTERVAL']) 
+    ? (int)filter_var($_SERVER['SA_SYNC_INTERVAL'], FILTER_VALIDATE_INT) : 60;
+$syncStart = isset($_SERVER['SA_START_SYNC']) && is_string($_SERVER['SA_START_SYNC'])
+    ? (string)$_SERVER['SA_START_SYNC'] : '00:00:00';
+$syncEnd = isset($_SERVER['SA_STOP_SYNC']) && is_string($_SERVER['SA_STOP_SYNC'])
+    ? (string)$_SERVER['SA_STOP_SYNC'] : '23:59:59';
+$timezone = isset($_SERVER['SA_TIME_ZONE']) && is_string($_SERVER['SA_TIME_ZONE'])
+    ? (string)$_SERVER['SA_TIME_ZONE'] : 'UTC';
+date_default_timezone_set($timezone);
 
 // Initialize Logger
 $log = initializeLogger();
@@ -34,7 +39,7 @@ try {
     $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
     $log->debug('*****************START**main.php*********************');
 
-    /** @var React\EventLoop\LoopInterface $loop */
+    /** @var React\EventLoop\StreamSelectLoop $loop */
     $loop = new StreamSelectLoop();
 
     $loop->addPeriodicTimer($syncInterval, function () use ($log, $syncInterval, $syncStart, $syncEnd) {
