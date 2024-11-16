@@ -27,7 +27,10 @@ $syncInterval = isset($_SERVER['SA_SYNC_INTERVAL'])
 
 $syncStart = $_SERVER['SA_START_SYNC'] ?? '00:00:00';
 $syncEnd = $_SERVER['SA_STOP_SYNC'] ?? '23:59:59';
-date_default_timezone_set($_SERVER['SA_TIME_ZONE'] ?? 'UTC');
+
+$timezone = isset($_SERVER['SA_TIME_ZONE']) && is_string($_SERVER['SA_TIME_ZONE'])
+    ? $_SERVER['SA_TIME_ZONE'] : 'UTC';
+date_default_timezone_set($timezone);
 
 // Initialize Logger
 $log = initializeLogger();
