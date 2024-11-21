@@ -25,7 +25,7 @@
 * Run on [``dependabot/composer/monolog/monolog-3.8.0``](https://github.com/aguilita1/SampleSyncApp/tree/dependabot/composer/monolog/monolog-3.8.0) branch manually
 
 
-## Dependabot 
+# Dependabot 
 
 * Eliminate technical debt with [Dependabot version updates](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates)
 * Review Dependabot configuration [dependabot.yml](https://github.com/aguilita1/SampleSyncApp/blob/main/.github/dependabot.yml)
