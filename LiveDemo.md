@@ -23,8 +23,9 @@
 * Run on commit-push to 'main' branch
   * Observe [caching](https://github.com/aguilita1/SampleSyncApp/actions/caches) of dev dependencies
 * Run on [``dependabot/composer/monolog/monolog-3.8.0``](https://github.com/aguilita1/SampleSyncApp/tree/dependabot/composer/monolog/monolog-3.8.0) branch manually
-
-
+* Run on a tag
+  * Notice creates tag and latest
+    
 # Dependabot 
 
 * Eliminate technical debt with [Dependabot version updates](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates)
