@@ -1,4 +1,4 @@
-name: Docker Scout
+name: Manual Docker Scout
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       image_name:
         description: 'Image Name'
         required: true
-        default: 'php:8.3.4-cli-alpine3.18'
+        default: 'php:8.4.1-cli-alpine3.20'
 
 permissions:
   contents: read
