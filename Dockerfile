@@ -17,10 +17,10 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM php:8.3.13-cli-alpine3.20
+FROM php:8.4.1-cli-alpine3.20
 
 # Added meta-data about this app
-ARG APP_VERSION="1.0.18"
+ARG APP_VERSION="1.1.0"
 LABEL vendor=REVOLVE \
       maintainer="Daniel.Ian.Kelley@gmail.com" \
       description="Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application." \

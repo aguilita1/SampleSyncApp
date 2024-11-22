@@ -16,11 +16,11 @@
   ],
   "config": {
       "platform": {
-           "php": "8.3.10"
+           "php": "8.4.1"
        }
   },
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.4",
     "guzzlehttp/guzzle": "^7.9.2",
     "react/event-loop":"^1.5.0",
     "monolog/monolog":"^3.7.0"
