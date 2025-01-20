@@ -17,7 +17,7 @@ RUN rm /app/composer.*
 # Stage 2
 # Build the IR container
 # Extend from alpine parent image
-FROM php:8.4.1-cli-alpine3.20
+FROM php:8.4.3-cli-alpine3.20
 
 # Added meta-data about this app
 ARG APP_VERSION="1.1.0"
