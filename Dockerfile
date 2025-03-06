@@ -63,6 +63,12 @@ RUN chown -R appuser:appgroup /opt/ir && \
     ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone && \
     mv php.ini-production /usr/local/etc/php/php.ini
 
+# Modify php.ini to set memory and execution variables during build (run as root)
+USER root
+RUN sed -i "s/session.gc_maxlifetime = .*$/session.gc_maxlifetime = $SA_PHP_SESSION_GC_MAXLIFETIME/" /usr/local/etc/php/php.ini && \
+    sed -i "s/max_execution_time = .*$/max_execution_time = $SA_PHP_MAX_EXECUTION_TIME/" /usr/local/etc/php/php.ini && \
+    sed -i "s/memory_limit = .*$/memory_limit = $SA_PHP_MEMORY_LIMIT/" /usr/local/etc/php/php.ini
+
 # Switch to the non-root user
 USER appuser
 
