@@ -59,7 +59,7 @@ COPY --from=composer /app /opt/ir
 # Move php.ini to config directory
 RUN chown -R appuser:appgroup /opt/ir && \
     chmod +x /entrypoint.sh && \
-    sed -i "s/.*app_version = 'APP_VERSION'.*$/\$app_version = '$APP_VERSION';/" /opt/ir/lib/main.php && \
+    sed -i "s/'APP_VERSION'/'$APP_VERSION'/g" /opt/ir/lib/main.php && \
     ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone && \
     mv php.ini-production /usr/local/etc/php/php.ini
 
