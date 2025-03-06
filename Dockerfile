@@ -20,13 +20,11 @@ FROM php:8.4.4-cli-alpine
 
 # Added meta-data about this app
 ARG APP_VERSION="1.2.0"
-LABEL vendor=REVOLVE \
-      maintainer="Daniel.Ian.Kelley@gmail.com" \
-      description="Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application." \
+LABEL org.opencontainers.image.vendor="aguilita1" \
+      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
-      com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2025-03-05"
+      com.github.aguilita1.version=$APP_VERSION 
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
