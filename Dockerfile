@@ -1,6 +1,6 @@
 # Stage 1
 # Run composer
-FROM  composer:2.8.6 AS composer
+FROM composer:2.8.6 AS composer
 WORKDIR /app
 COPY ./composer.json /app
 COPY ./composer.lock /app
@@ -15,7 +15,7 @@ RUN composer install --no-interaction --no-dev --ignore-platform-reqs --optimize
 RUN rm /app/composer.*
 
 # Stage 2
-# Extend from officail PHP image using latest Alpine parent image
+# Extend from official PHP image using latest Alpine parent image
 FROM php:8.4.4-cli-alpine
 
 # Added meta-data about this app
@@ -34,6 +34,9 @@ RUN apk update && apk upgrade && apk add \
     tzdata \
     && rm -rf /var/cache/apk/*
 
+# Create a non-root user and group (e.g., appuser with UID and GID 1000)
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
 # Add all necessary config files (entrypoint.sh & php.ini) in one layer
 ADD docker/ /
 
@@ -46,7 +49,7 @@ ENV SA_PHP_SESSION_GC_MAXLIFETIME=1440 \
     SA_START_SYNC=04:00:00\
     SA_STOP_SYNC=23:59:59
 
-# Map the source files into /var/www/cms
+# Map the source files into /opt/ir
 RUN mkdir -p /opt/ir
 COPY --from=composer /app /opt/ir
 
@@ -54,11 +57,14 @@ COPY --from=composer /app /opt/ir
 # Write App version to settings.php file
 # Set Time Zone
 # Move php.ini to config directory
-RUN chown -R nobody /opt/ir && \
+RUN chown -R appuser:appgroup /opt/ir && \
     chmod +x /entrypoint.sh && \
     sed -i "s/.*app_version = 'APP_VERSION'.*$/\$app_version = '$APP_VERSION';/" /opt/ir/lib/main.php && \
     ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone && \
     mv php.ini-production /usr/local/etc/php/php.ini
+
+# Switch to the non-root user
+USER appuser
 
 # Set the working directory to root
 WORKDIR /
