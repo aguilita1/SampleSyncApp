@@ -24,7 +24,7 @@ LABEL com.github.aguilita1.app-version=$APP_VERSION  \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
       org.opencontainers.image.vendor="aguilita1" \
-      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" \
+      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" 
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
