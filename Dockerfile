@@ -20,11 +20,11 @@ FROM php:8.4.4-cli-alpine
 
 # Added meta-data about this app
 ARG APP_VERSION="1.2.0"
-LABEL org.opencontainers.image.vendor="aguilita1" \
-      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" \
+LABEL com.github.aguilita1.app-version=$APP_VERSION  \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
-      com.github.aguilita1.version=$APP_VERSION 
+      org.opencontainers.image.vendor="aguilita1" \
+      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" \
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
