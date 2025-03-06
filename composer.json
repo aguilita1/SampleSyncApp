@@ -1,6 +1,6 @@
 {
   "name": "aguilita1/samplesyncapp",
-  "description": "Sample Sync Application written in PHP to test out Github Actions.",
+  "description": "Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application.",
   "keywords": [
     "Sample PHP App",
     "React EventLoop",

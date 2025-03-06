@@ -36,7 +36,7 @@ date_default_timezone_set($timezone);
 $log = initializeLogger();
 
 try {
-    $log->info(sprintf('Starting up - SampleSyncApp version: %s PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
+    $log->info(sprintf('SampleSyncApp version %s started on PROJECT_ROOT=%s', 'APP_VERSION', PROJECT_ROOT));
     $log->debug('*****************START**main.php*********************');
 
     /** @var React\EventLoop\StreamSelectLoop $loop */

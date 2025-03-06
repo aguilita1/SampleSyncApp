@@ -19,14 +19,12 @@ RUN rm /app/composer.*
 FROM php:8.4.4-cli-alpine
 
 # Added meta-data about this app
-ARG APP_VERSION="1.2.0"
-LABEL vendor=REVOLVE \
-      maintainer="Daniel.Ian.Kelley@gmail.com" \
-      description="Sample Sync App is a reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application." \
+ARG APP_VERSION="1.2.1"
+LABEL com.github.aguilita1.app-version=$APP_VERSION  \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
-      com.github.aguilita1.version=$APP_VERSION \
-      com.github.aguilita1.release-date="2025-03-05"
+      org.opencontainers.image.vendor="aguilita1" \
+      org.opencontainers.image.authors="Daniel.Ian.Kelley@gmail.com" 
 
 # Install bash, and time zone data programs.
 RUN apk update && apk upgrade && apk add \
@@ -59,7 +57,7 @@ COPY --from=composer /app /opt/ir
 # Move php.ini to config directory
 RUN chown -R appuser:appgroup /opt/ir && \
     chmod +x /entrypoint.sh && \
-    sed -i "s/.*app_version = 'APP_VERSION'.*$/\$app_version = '$APP_VERSION';/" /opt/ir/lib/main.php && \
+    sed -i "s/'APP_VERSION'/'$APP_VERSION'/g" /opt/ir/lib/main.php && \
     ln -snf /usr/share/zoneinfo/$SA_TIME_ZONE /etc/localtime && echo $SA_TIME_ZONE > /etc/timezone && \
     mv php.ini-production /usr/local/etc/php/php.ini
 
