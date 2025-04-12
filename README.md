@@ -2,6 +2,10 @@
 A reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application.
 * Published Docker Images: [https://hub.docker.com/r/luigui/samplesyncapp](https://hub.docker.com/r/luigui/samplesyncapp)
 
+## Docker Official Approved Base Images
+* [PHP](https://github.com/docker-library/official-images/blob/master/library/php)
+* [Composer](https://github.com/docker-library/official-images/blob/master/library/composer)
+
 ## Demonstrates Various Continuous Integration Tasks
 * Checkout Code [``actions/checkout@v4``](https://github.com/marketplace/actions/checkout)
 * Validate composer.json and composer.lock  ``run: composer validate --strict``
