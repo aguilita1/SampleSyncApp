@@ -16,10 +16,10 @@ RUN rm /app/composer.*
 
 # Stage 2
 # Extend from official PHP image using latest Alpine parent image
-FROM php:8.4.5-cli-alpine
+FROM php:8.4.6-cli-alpine
 
 # Added meta-data about this app
-ARG APP_VERSION="1.2.2"
+ARG APP_VERSION="1.2.3"
 LABEL com.github.aguilita1.app-version=$APP_VERSION  \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
