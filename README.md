@@ -7,7 +7,7 @@ A reference implementation to demonstrate how to use Github Actions with a simpl
 * [Composer](https://github.com/docker-library/official-images/blob/master/library/composer)
 
 ## Demonstrates Various Continuous Integration Tasks
-* Checkout Code [``actions/checkout@v4``](https://github.com/marketplace/actions/checkout)
+* Checkout Code [``actions/checkout@v5``](https://github.com/marketplace/actions/checkout)
 * Validate composer.json and composer.lock  ``run: composer validate --strict``
 * Cache Dev Composer dependencies [``actions/cache@v4``](https://github.com/marketplace/actions/cache)
 * Install DEV Dependencies [``php-actions/composer@v6``](https://github.com/marketplace/actions/composer-php-actions)
