@@ -19,4 +19,4 @@ A reference implementation to demonstrate how to use Github Actions with a simpl
 * Login to Docker Hub [``docker/login-action@v3``](https://github.com/marketplace/actions/docker-login)
 * Build and Push Docker Image [``docker/build-push-action@v6``](https://github.com/marketplace/actions/build-and-push-docker-images)
 * Docker Scout [``docker/scout-action@v1``](https://github.com/marketplace/actions/docker-scout)
-* Upload SARIF result [``github/codeql-action/upload-sarif@v3``](https://github.com/github/codeql-action)
+* Upload SARIF result [``github/codeql-action/upload-sarif@v4``](https://github.com/github/codeql-action)
