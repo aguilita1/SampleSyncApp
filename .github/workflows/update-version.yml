@@ -1,0 +1,50 @@
+name: Update App Version and Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Application version (e.g. 1.2.8)'
+        required: true
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Required to create tags and releases
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Update APP_VERSION in Dockerfile
+        run: |
+          sed -i 's/^ARG APP_VERSION=".*"/ARG APP_VERSION="${{ github.event.inputs.version }}"/' Dockerfile
+
+      - name: Commit change and push
+        continue-on-error: true
+        run: |
+          git add Dockerfile
+          git commit -m "chore: bump APP_VERSION to ${{ github.event.inputs.version }}"
+          git push origin HEAD
+
+      - name: Create Git tag
+        run: |
+          git tag v${{ github.event.inputs.version }}
+          git push origin v${{ github.event.inputs.version }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          name: v${{ github.event.inputs.version }}
+          draft: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
