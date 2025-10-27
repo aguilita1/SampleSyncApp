@@ -1,4 +1,4 @@
-name: Update App Version and Tag
+name: Update App Version and Tag v${{ github.event.inputs.version }}
 
 on:
   workflow_dispatch:
