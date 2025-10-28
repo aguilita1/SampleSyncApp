@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          ref: main
 
       - name: Set up Python 3
         uses: actions/setup-python@v4
@@ -20,64 +22,12 @@ jobs:
         run: pip install pyyaml
 
       - name: Extract versions and update README
+        run: python .github/scripts/update-readme.py
+
+      - name: Commit and push changes
         run: |
-          import re
-          import yaml
-          from pathlib import Path
-
-          # Paths
-          dockerfile_path = Path("Dockerfile")
-          workflow_path = Path(".github/workflows/php.yml")
-          readme_path = Path("README.md")
-
-          # Read Dockerfile
-          dockerfile = dockerfile_path.read_text()
-
-          # Extract PHP image
-          php_image_match = re.search(r'^FROM (php:[^\s]+)-cli-alpine', dockerfile, re.MULTILINE)
-          php_image = php_image_match.group(1) if php_image_match else None
-
-          # Extract Composer image
-          composer_image_match = re.search(r'^FROM (composer:[^\s]+) AS composer', dockerfile, re.MULTILINE)
-          composer_image = composer_image_match.group(1) if composer_image_match else None
-
-          # Get versions by running Docker containers
-          def get_php_version(image):
-              result = subprocess.run(
-                  ["docker", "run", "--rm", image, "php", "-r", "echo PHP_VERSION;"],
-                  capture_output=True, text=True
-              )
-              return result.stdout.strip()
-
-          def get_alpine_version(image):
-              result = subprocess.run(
-                  ["docker", "run", "--rm", image, "cat", "/etc/alpine-release"],
-                  capture_output=True, text=True
-              )
-              return result.stdout.strip()
-
-          def get_composer_version(image):
-              result = subprocess.run(
-                  ["docker", "run", "--rm", image, "composer", "--version"],
-                  capture_output=True, text=True
-              )
-              # Output is like: Composer version 2.8.12 2023-03-12 14:38:00
-              return result.stdout.strip().split()[2]
-
-          php_ver = get_php_version(php_image) if php_image else "unknown"
-          alpine_ver = get_alpine_version(f"{php_image}-alpine") if php_image else "unknown"
-          composer_ver = get_composer_version(composer_image) if composer_image else "unknown"
-
-          # Read workflow YAML for action versions
-          workflow = yaml.safe_load(workflow_path.read_text())
-          action_versions = {}
-          for step in workflow.get('jobs', {}).get('build', {}).get('steps', []):
-              uses = step.get('uses')
-              if uses:
-                  action_name, version = uses.split('@')
-                  action_versions[action_name] = version
-                  echo '{action_name} Version: {version}'
-
-          echo 'PHP Version: {php_ver}'
-          echo 'Alpine Linux Version: {alpine_ver}'
-          echo 'Composer Version: {composer_ver}'
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "Update README badges and action versions [skip ci]" || echo "No changes to commit"
+          git push origin main
