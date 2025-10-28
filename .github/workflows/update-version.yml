@@ -33,7 +33,7 @@ jobs:
         continue-on-error: true
         run: |
           git add Dockerfile
-          git commit -m "chore: bump APP_VERSION to ${{ github.event.inputs.version }}"
+          git commit -m "chore: bumped APP_VERSION to ${{ github.event.inputs.version }}"
           git push origin main
 
       - name: Create Git tag
