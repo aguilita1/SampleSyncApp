@@ -81,33 +81,3 @@ jobs:
           echo 'PHP Version: {php_ver}'
           echo 'Alpine Linux Version: {alpine_ver}'
           echo 'Composer Version: {composer_ver}'
-          
-          # Update README badges
-          # readme = readme_path.read_text()
-          # readme = re.sub(r'!\[PHP Version\]\(.*?\)', f'![PHP Version](https://img.shields.io/badge/PHP-v{php_ver}-blue)', readme)
-          # readme = re.sub(r'!\[Alpine Linux Version\]\(.*?\)', f'![Alpine Linux Version](https://img.shields.io/badge/Alpine_Linux-v{alpine_ver}-blue)', readme)
-          # readme = re.sub(r'!\[Composer Version\]\(.*?\)', f'![Composer Version](https://img.shields.io/badge/Composer-v{composer_ver}-blue)', readme)
-
-          # Update bullets with GitHub Actions versions
-          # for step in workflow.get('jobs', {}).get('build', {}).get('steps', []):
-          #     uses = step.get('uses')
-          #     name = step.get('name')
-          #     if uses and name:
-          #         action_name = uses.split('@')[0]
-          #         version = uses.split('@')[1]
-          #         readme = re.sub(
-          #             rf'(``{re.escape(action_name)}@[^`]+``)',
-          #             f'``{action_name}@{version}``',
-          #             readme
-          #         )
-
-          # # Save updated README
-          # readme_path.write_text(readme)
-
-      # - name: Commit and push changes
-      #   run: |
-      #     git config --local user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config --local user.name "github-actions[bot]"
-      #     git add README.md
-      #     git commit -m "Update README badges and action versions [skip ci]" || echo "No changes to commit"
-      #     git push
