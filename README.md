@@ -1,4 +1,4 @@
-# SampleSyncApp [![PHP Composer](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml/badge.svg?branch=main&event=push)](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml) [![PHP Version](https://img.shields.io/badge/PHP-v8.4.14-blue)](https://www.php.net/ChangeLog-8.php) [![Alpine Linux Version](https://img.shields.io/badge/Alpine_Linux-v3.22.2-blue)](https://alpinelinux.org/releases/) [![Composer Version](https://img.shields.io/badge/Composer-v2.8.12-blue)](https://github.com/composer/composer/releases)
+# SampleSyncApp [![PHP Composer](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml/badge.svg?branch=main&event=push)](https://github.com/aguilita1/SampleSyncApp/actions/workflows/php.yml) [![PHP Version](https://img.shields.io/badge/PHP-v8.5.1-blue)](https://www.php.net/ChangeLog-8.php) [![Alpine Linux Version](https://img.shields.io/badge/Alpine_Linux-v3.23.2-blue)](https://alpinelinux.org/releases/) [![Composer Version](https://img.shields.io/badge/Composer-v2.9.2-blue)](https://github.com/composer/composer/releases)
 A reference implementation to demonstrate how to use Github Actions with a simple PHP CLI synchronization application.
 * Published Docker Images: [https://hub.docker.com/r/luigui/samplesyncapp](https://hub.docker.com/r/luigui/samplesyncapp)
 
@@ -7,9 +7,9 @@ A reference implementation to demonstrate how to use Github Actions with a simpl
 * [Composer](https://github.com/docker-library/official-images/blob/master/library/composer)
 
 ## Demonstrates Various Continuous Integration Tasks
-* Checkout Code [``actions/checkout@v5``](https://github.com/marketplace/actions/checkout)
+* Checkout Code [``actions/checkout@v6``](https://github.com/marketplace/actions/checkout)
 * Validate composer.json and composer.lock  ``run: composer validate --strict``
-* Cache Dev Composer dependencies [``actions/cache@v4``](https://github.com/marketplace/actions/cache)
+* Cache Dev Composer dependencies [``actions/cache@v5``](https://github.com/marketplace/actions/cache)
 * Install DEV Dependencies [``php-actions/composer@v6``](https://github.com/marketplace/actions/composer-php-actions)
 * PHP Static Analysis [``php-actions/phpstan@v3``](https://github.com/marketplace/actions/phpstan-php-actions)
 * PHPUnit Tests [``php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35``](https://github.com/marketplace/actions/phpunit-php-actions?version=v4)
