@@ -1,6 +1,6 @@
 changelog:
   categories:
-    - title: Maintenance Release
+    - title: Patches
       labels:
         - dependencies
         - maintenance-patch

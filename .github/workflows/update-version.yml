@@ -9,7 +9,7 @@ on:
       release_title:
         description: 'Maintenance Release MMM-YYYY'
         required: true
-        default: 'Maintenance Release MMM-YYYY'
+        default: '## Maintenance Release MMM-YYYY'
 jobs:
   update-version:
     runs-on: ubuntu-latest
