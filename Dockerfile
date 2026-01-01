@@ -19,7 +19,7 @@ RUN rm /app/composer.*
 FROM php:8.5.1-cli-alpine
 
 # Added meta-data about this app
-ARG APP_VERSION="1.2.9"
+ARG APP_VERSION="1.3.0"
 LABEL com.github.aguilita1.app-version=$APP_VERSION  \
       com.github.aguilita1.is-beta="false" \
       com.github.aguilita1.is-production="true" \
