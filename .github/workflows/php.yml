@@ -20,8 +20,6 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v6
-      with:
-        fetch-tags: true
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict

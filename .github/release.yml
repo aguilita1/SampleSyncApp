@@ -12,6 +12,6 @@ changelog:
       labels:
         - Semver-Minor
         - enhancement
-    - title: Feature Release
+    - title: Other Changes
       labels:
         - "*"
