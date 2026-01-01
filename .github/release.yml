@@ -1,0 +1,17 @@
+changelog:
+  categories:
+    - title: Maintenance Release
+      labels:
+        - dependencies
+        - maintenance-patch
+    - title: Breaking Changes 🛠
+      labels:
+        - Semver-Major
+        - breaking-change
+    - title: Exciting New Features 🎉
+      labels:
+        - Semver-Minor
+        - enhancement
+    - title: Feature Release
+      labels:
+        - "*"
