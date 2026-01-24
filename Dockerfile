@@ -16,7 +16,7 @@ RUN rm /app/composer.*
 
 # Stage 2
 # Extend from official PHP image using latest Alpine parent image
-FROM php:8.5.1-cli-alpine
+FROM php:8.5.2-cli-alpine
 
 # Added meta-data about this app
 ARG APP_VERSION="1.3.0"
