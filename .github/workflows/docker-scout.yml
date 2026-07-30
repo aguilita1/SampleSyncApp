@@ -26,7 +26,7 @@ jobs:
 
     - name: Docker Scout
       id: docker-scout
-      uses: docker/scout-action@v1
+      uses: docker/scout-action@v1.23.1
       with:
         command: cves, recommendations
         image: ${{ github.event.inputs.image_name }}

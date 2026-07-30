@@ -96,7 +96,7 @@ jobs:
     - name: Docker Scout
       id: docker-scout
       if: ${{ github.event_name != 'pull_request_target' }}
-      uses: docker/scout-action@v1
+      uses: docker/scout-action@v1.23.1
       with:
         command: cves, recommendations
         sarif-file: sarif.output.json
